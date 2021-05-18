@@ -1,0 +1,131 @@
+- Creación de controlador/modelo/seeder/factory/migration
+	- php artisan make:model Todo -a
+- Una vez actualizado archivo de migración ejecutar la migración.
+	- php artisan migrate
+- Crear Alerta
+	- php artisan make:component Alert
+		- https://www.youtube.com/watch?v=DkiATGbG9cY&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=19
+		- https://www.youtube.com/watch?v=b9ozSBKjQTk&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=21
+		- Crea archivo 
+			- App\View\Components\Alert.php
+			- resources\View\components\alert.blade.php
+			
+	- Sección de error:
+		- https://www.youtube.com/watch?v=_-lIP0IbArA&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=24
+		
+	- php artisan make:request StorePostRequest
+		- Crea archivos:
+			- app/Http/Requests/StorePostRequest
+			- 
+			
+- Form Validation
+	- https://www.youtube.com/watch?v=7NmngGhHwZo&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=25
+		- php artisan make:request ToDoCreateRequest
+			
+- VALIDACIONES
+	- Crear Rutas
+	- Crear Modelo - Migración - Controlador
+		- php artisan make:model Posteo -mc
+	- Adecuar migración agregando los campos que sean necesarios
+	- Ejecutar migración
+		- php artisan migrate:fresh
+	- Crear la vista view/posteos
+	- Validación de solicitud de formulario
+		- Buena referencia
+			- https://medium.com/@kamerk22/the-smart-way-to-handle-request-validation-in-laravel-5e8886279271
+		- Error
+			- 403 - This action is unauthorized.
+				- En el método Autorize del REQUEST se debe retornar un true.
+					- https://codesource.io/ask/d/291-this-action-is-unauthorized-laravel-validation
+			- 
+		- Crear solicitudes de formulario
+			- php artisan make:request StorePosteoRequest
+				- Crea: 
+					- App\Http\Requests\StorePosteoRequest.php
+			
+- 2021-05-13
+	- VIDEO 01: Upgrade to Laravel 7 from any laravel version
+		- https://www.youtube.com/watch?v=-5QcxlpyA7Y&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=2
+		
+		- Guia del manual
+			- https://laravel.com/docs/7.x/upgrade
+			- Requiere php 7.2.5
+			- Colocar las versiones en las q indica el manual
+			- Abrir el Github que se indica al final del manual
+			  y comparar el composer.json
+			- Ejecutar "composer update"
+			- Cambiar Exepcion a Throwable
+			- php artisan --version
+			- Completar archivo cors.php
+				- php artisan vendo:pubhish
+				- Seleccionar [9 ] Tag: cors
+				- verificar dentro carpeta "config" se tiene archivo cors.php
+	
+	- VIDEO 02: 1. Laravel 7 for Beginners - Install and setup Laravel 7
+		- https://www.youtube.com/watch?v=i-6qK5MyjO4&list=PLe30vg_FG4OSCTUv3XIkwH--cK2D7rfJJ&index=3
+		
+		- Instalar XAMPP / WAMP
+		- Composer (Bajar el instalador de sitio)
+		- Laravel installer
+			- composer global require laravel/installer
+		- Instalar nuevo proyecto
+			- laravel new proyecto_04_CarritoCompras
+			
+		- Instalar Versión específica de laravel:
+				- composer create-project --prefer-dist laravel/laravel:^7.0 proyecto_04_CarritoCompras
+				
+				- ERROR:
+					[Composer\Downloader\TransportException]
+					curl error 60 while downloading https://repo.packagist.org/p2/laravel/laravel.json: 
+					SSL certificate problem: self signed certificate in certificate chain 
+					
+					SOLUCION:
+						- composer diagnose
+
+					- Se debe crear el certificado en windows, para eso:
+						- 1.0 Instar OpenSSL
+							- How To Install OpenSSL on Windows
+								- https://tecadmin.net/install-openssl-on-windows/
+									- Ir a: https://slproweb.com/products/Win32OpenSSL.html
+									- Bajar último Win62 OpenSSL
+									- Ejecutar instalador
+									
+									- Instale Cygwin (https://www.ssl.com/es/c%C3%B3mo/instalar-openssl-en-windows-con-cygwin/)
+										- Bajarlo de "https://cygwin.com/install.html"
+										- Ejecutar setup.
+										- Search Openssl
+									- 
+							
+							- How to Install OpenSSL on Windows 10
+								- https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse
+									- Open Settings, select Apps > Apps & Features, then select Optional Features.
+									- Scan the list to see if the OpenSSH is already installed. 
+									  If not, at the top of the page, select Add a feature, then:
+										- On Windows 10, find OpenSSH Client, then click Install
+										- On Windows Server 2019, find OpenSSH Server, then click Install
+										
+								- https://www.youtube.com/watch?v=3I7eL2Mm6Ps
+								- https://medium.com/swlh/installing-openssl-on-windows-10-and-updating-path-80992e26f6a1
+								- ** https://slproweb.com/products/Win32OpenSSL.html
+					
+				- ERROR 
+					The Composer installer script was not successful [exit code 1].
+					OpenSSL failed with a 'certificate verify failed' error. 
+					This indicates a problem with the Certificate Authority file(s) 
+					on your system, which may be out of date.
+					
+					Certificate location [from openssl.cafile ini setting]:
+					C:\xampp\apache\bin\curl-ca-bundle.crt
+					
+					The php.ini used by your command-line PHP is: C:\xampp\php\php.ini
+					
+					Script Output:
+					The "https://getcomposer.org/versions" file could not be downloaded: 
+					SSL operation failed with code 1. OpenSSL Error messages:
+					error:1416F086:SSL routines:tls_process_server_certificate:certificate verify failed
+					Failed to enable crypto
+					Failed to open stream: operation failed
+					
+					- Composer update fails while updating from packagist
+						- https://stackoverflow.com/questions/27206719/composer-update-fails-while-updating-from-packagist
+						
